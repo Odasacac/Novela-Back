@@ -22,6 +22,48 @@ public class PersonajesServicios implements IPersonajesServicios
 	private IFuncionesUtiles fU;
 
 	
+	@Override
+	public ResponseEntity<RespuestaPersonajes> guardarPartida(PersonajeModelo personaje) 
+	{
+	    HttpStatus estado = HttpStatus.OK;
+	    RespuestaPersonajes cuerpo = new RespuestaPersonajes();
+
+	    personaje.setNombre(personaje.getNombre().trim().toUpperCase());
+
+	    try 
+	    {
+	        Optional<PersonajeModelo> personajeExistente = personajesDao.findByNombreAndMiedo(personaje.getNombre(), personaje.getMiedo());
+
+	        if (personajeExistente.isPresent()) 
+	        {
+	            PersonajeModelo personajeActualizado = personajeExistente.get();
+	            
+	            personajeActualizado.setNivelDeMiedo(personaje.getNivelDeMiedo());
+	            personajeActualizado.setNivelDeTranquilidad(personaje.getNivelDeTranquilidad());
+	            personajeActualizado.setImpactos(personaje.getImpactos());
+	            personajeActualizado.setSuerte(personaje.getSuerte());
+	            
+	            personajesDao.save(personajeActualizado);
+
+	            cuerpo.setRespuesta("Personaje actualizado con éxito.");
+	            cuerpo.setPersonaje(personajeActualizado);
+	        } 
+	        else 
+	        {
+	            estado = HttpStatus.BAD_REQUEST;
+	            cuerpo.setRespuesta("Error: No se encontró el personaje para actualizar.");
+	            cuerpo.setPersonaje(null);
+	        }
+	    } 
+	    catch (Exception e) 
+	    {
+	        estado = HttpStatus.INTERNAL_SERVER_ERROR;
+	        cuerpo.setRespuesta("Error al actualizar el personaje: " + e.getMessage());
+	        cuerpo.setPersonaje(null);
+	    }
+
+	    return new ResponseEntity<>(cuerpo, estado);
+	}
 
 
 
@@ -52,7 +94,7 @@ public class PersonajesServicios implements IPersonajesServicios
 		catch (Exception e)
 		{
 			estado = HttpStatus.INTERNAL_SERVER_ERROR;
-			cuerpo.setRespuesta("Error al recuperar personaje:" + e);
+			cuerpo.setRespuesta("Error al recuperar personaje:" + e.getMessage());
 			cuerpo.setPersonaje(null);
 		}
 		
@@ -112,7 +154,7 @@ public class PersonajesServicios implements IPersonajesServicios
 		catch (Exception e)
 		{
 			estado = HttpStatus.INTERNAL_SERVER_ERROR;
-			cuerpo.setRespuesta("Error al guardar nuevo personaje:" + e);
+			cuerpo.setRespuesta("Error al guardar nuevo personaje:" + e.getMessage());
 			cuerpo.setPersonaje(null);
 		}
 		

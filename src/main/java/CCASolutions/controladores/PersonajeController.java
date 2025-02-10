@@ -21,6 +21,13 @@ public class PersonajeController
 	private IPersonajesServicios personajesServicios;
 	
 	@PostMapping("/guardar")
+	public ResponseEntity<RespuestaPersonajes> guardarPartida (@RequestBody PersonajeModelo personaje)
+	{
+		return personajesServicios.guardarPartida(personaje);
+	}
+	
+	
+	@PostMapping("/guardarnuevo")
 	public ResponseEntity<RespuestaPersonajes> guardarNuevoPersonaje (@RequestBody PersonajeModelo personaje)
 	{
 		return personajesServicios.guardarNuevoPersonaje(personaje);
