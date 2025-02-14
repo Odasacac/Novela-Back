@@ -125,6 +125,8 @@ public class PersonajesServicios implements IPersonajesServicios
 		personaje.setNivelDeTranquilidad(0);
 		personaje.setImpactos(0);
 		personaje.setMaster(false);
+		personaje.setCapitulo(1);
+
 		
 		
 		try
