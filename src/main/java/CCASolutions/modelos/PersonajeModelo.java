@@ -17,16 +17,19 @@ public class PersonajeModelo implements Serializable
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Long id;
-	String nombre;
-    int miedo;
-    int olvido;
-    int suerte;
-    int nivelDeMiedo;
-    int nivelDeTranquilidad;
-    int impactos;
-    boolean master;
-    
+	private Long id;
+	private String nombre;
+	private int miedo;
+	private int olvido;
+	private int suerte;
+	private int nivelDeMiedo;
+	private int nivelDeTranquilidad;
+	private int impactos;
+	private boolean master;
+	private int capitulo;
+	private int exploracion;
+	
+	
 	public Long getId() 
 	{
 		return id;
@@ -46,9 +49,7 @@ public class PersonajeModelo implements Serializable
 	{
 		this.nombre = nombre;
 	}
-	
-	public int getMiedo() 
-	{
+	public int getMiedo() {
 		return miedo;
 	}
 	
@@ -107,7 +108,7 @@ public class PersonajeModelo implements Serializable
 		this.impactos = impactos;
 	}
 	
-	public boolean getMaster() 
+	public boolean isMaster() 
 	{
 		return master;
 	}
@@ -116,7 +117,33 @@ public class PersonajeModelo implements Serializable
 	{
 		this.master = master;
 	}
+	
+	public int getCapitulo() 
+	{
+		return capitulo;
+	}
+	
+	public void setCapitulo(int capitulo) 
+	{
+		this.capitulo = capitulo;
+	}
+	
+	public int getExploracion() 
+	{
+		return exploracion;
+	}
+	
+	public void setExploracion(int exploracion)
+	{
+		this.exploracion = exploracion;
+	}
+	
+	public static long getSerialversionuid() 
+	{
+		return serialVersionUID;
+	}
     
+	
     
 	
 }

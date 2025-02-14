@@ -42,11 +42,13 @@ public class PersonajesServicios implements IPersonajesServicios
 	            personajeActualizado.setNivelDeTranquilidad(personaje.getNivelDeTranquilidad());
 	            personajeActualizado.setImpactos(personaje.getImpactos());
 	            personajeActualizado.setSuerte(personaje.getSuerte());
+	            personajeActualizado.setCapitulo(personaje.getCapitulo());
+	            personajeActualizado.setExploracion(personaje.getExploracion());
 	            
 	            personajesDao.save(personajeActualizado);
 
-	            cuerpo.setRespuesta("Personaje actualizado con éxito.");
-	            cuerpo.setPersonaje(personajeActualizado);
+	            cuerpo.setRespuesta("Personaje guardado con éxito.");
+	            cuerpo.setPersonaje(null);
 	        } 
 	        else 
 	        {
@@ -87,7 +89,7 @@ public class PersonajesServicios implements IPersonajesServicios
 			else
 			{		
 				estado = HttpStatus.NOT_FOUND;
-				cuerpo.setRespuesta("Error al recuperar el personaje: Personaje no existente.");
+				cuerpo.setRespuesta("Error al recuperar el personaje: Personaje inexistente.");
 				cuerpo.setPersonaje(null);
 			}
 		}
@@ -146,7 +148,7 @@ public class PersonajesServicios implements IPersonajesServicios
 				else
 				{
 					cuerpo.setRespuesta("Personaje guardado con éxito.");
-					cuerpo.setPersonaje(null);
+					cuerpo.setPersonaje(personajeGuardado);
 				}
 				
 			}
